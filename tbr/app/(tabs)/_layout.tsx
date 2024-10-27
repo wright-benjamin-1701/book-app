@@ -23,12 +23,13 @@ export default function TabLayout() {
           ),
         }}
       />
+      
       <Tabs.Screen
-        name="explore"
+        name="book-search"
         options={{
-          title: 'Explore',
+          title: 'Book Search',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <TabBarIcon name={focused ? 'search-circle' : 'search-circle-outline'} color={color} />
           ),
         }}
       />
