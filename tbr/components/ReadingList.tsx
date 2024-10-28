@@ -3,26 +3,26 @@ import { Button, FlatList, StyleSheet, View } from 'react-native';
 import BookResult from '@/components/BookResult'; // Assuming you have a BookResult component defined somewhere
 import { Book } from '@/types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ListBook from './ReadingListElement';
 
 
 
 
 interface Props {
-    books?: Book[];
 }
 export default function SearchResults(props:Props) {
-  const { books } = props;
+
 
   const resultsPerPage = 5;
 
-  const slices = [];
-
-  for (let i = 0; i < Math.ceil((books?.length || 0) / resultsPerPage); i++) {
-    slices.push(books?.slice(i * resultsPerPage, (i + 1) * resultsPerPage));
-  }
 
   const [index, setIndex] = useState(0);
   const [readingList, setReadingList] = useState<Book[]>([]);
+  const slices = [];
+
+  for (let i = 0; i < Math.ceil((readingList?.length || 0) / resultsPerPage); i++) {
+    slices.push(readingList?.slice(i * resultsPerPage, (i + 1) * resultsPerPage));
+  }
 
   const onIndexChanged = useCallback((index:number)=> {setIndex(index);},[setIndex]);
   const onReadingListUpdated = useCallback((readingList:Book[])=> {setReadingList(readingList)}, [setReadingList]);
@@ -34,9 +34,8 @@ export default function SearchResults(props:Props) {
 
   }
 
-  const handleAddBookToReadingList = useCallback((book:Book)=> {
-    setAsyncReadingList([...readingList, book]);
-    console.log(readingList);
+  const handleRemoveBookFromReadingList = useCallback((book:Book)=> {
+    setAsyncReadingList(readingList.filter(b => b.isbn !== book.isbn));
   },[setAsyncReadingList, readingList]);
 
   useEffect( ()=>{
@@ -59,9 +58,7 @@ export default function SearchResults(props:Props) {
         <View>
           <FlatList
             data={slices[index]}
-            renderItem={({ item }) => <BookResult book={item} addBookHandler={handleAddBookToReadingList} buttonDisabled={readingList.some((book)=>{
-              return book.isbn === item.isbn;
-            })} />}
+            renderItem={({ item }) => <ListBook book={item} removeBookHandler={handleRemoveBookFromReadingList} buttonDisabled={false} />}
             keyExtractor={(item) => item.isbn}
             style={styles.container}
           />

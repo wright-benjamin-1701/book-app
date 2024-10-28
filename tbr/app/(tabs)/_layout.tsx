@@ -33,6 +33,17 @@ export default function TabLayout() {
           ),
         }}
       />
+
+    <Tabs.Screen
+        name="reading-list"
+        options={{
+          title: 'Reading List',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'book' : 'book-outline'} color={color} />
+          ),
+        }}
+      />
+
     </Tabs>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { Book } from '@/types';
 
-const BookResult: React.FC<{ book: Book, addBookHandler: (book: Book) => void,buttonDisabled:boolean }> = ({ book, addBookHandler,buttonDisabled }) => {
+const ListBook: React.FC<{ book: Book, removeBookHandler: (book: Book) => void,buttonDisabled:boolean }> = ({ book, removeBookHandler,buttonDisabled }) => {
   return (
     <>
     <View style={styles.container}>
@@ -10,7 +10,7 @@ const BookResult: React.FC<{ book: Book, addBookHandler: (book: Book) => void,bu
       <Text style={styles.author}>Author: {book.author}</Text>
       <Text style={styles.year}>Year of Publication: {book.year}</Text>
       <View style={{alignSelf:'baseline', marginVertical:2}}>
-      <Button title='Add to reading list' onPress={()=> {addBookHandler(book);}} disabled={buttonDisabled} />
+      <Button title='Remove book from reading list' onPress={()=> {removeBookHandler(book);}} disabled={buttonDisabled} />
     </View>
       
     </View>
@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BookResult;
+export default ListBook;

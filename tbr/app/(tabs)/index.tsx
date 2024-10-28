@@ -20,9 +20,15 @@ export default function HomeScreen() {
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText type="subtitle">Step 1: Add Books to your Reading List</ThemedText>
         <ThemedText>
          Head over to the search tab to run a book search!
+        </ThemedText>
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Step 2: View your Reading List</ThemedText>
+        <ThemedText>
+         You can view your list and remove books from it from the reading list tab!
         </ThemedText>
       </ThemedView>
     </ParallaxScrollView>
