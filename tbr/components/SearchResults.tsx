@@ -36,7 +36,6 @@ export default function SearchResults(props:Props) {
 
   const handleAddBookToReadingList = useCallback((book:Book)=> {
     setAsyncReadingList([...readingList, book]);
-    console.log(readingList);
   },[setAsyncReadingList, readingList]);
 
   useEffect( ()=>{

@@ -13,11 +13,16 @@ import searchBooksRequest from '@/services/search-books';
 import ReadingList from '@/components/ReadingList';
 import { Book } from '@/types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
+
 
 // Todo: refactor other code
 // add reading list and remove from reading list buttons
 export default function TabFourScreen() {
 
+  const isFocused = useIsFocused();
+
+  
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
@@ -27,7 +32,8 @@ export default function TabFourScreen() {
       </ThemedView>
 
     <ThemedView style={{ paddingHorizontal: 24 }}>
-      <ReadingList  />
+      {isFocused?<ReadingList  />:null }
+      
     </ThemedView>
       
     </ParallaxScrollView>

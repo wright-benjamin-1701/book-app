@@ -10,9 +10,12 @@ import SearchBar from '@/components/SearchBar';
 import SearchResults from '@/components/SearchResults';
 import { useCallback, useState } from 'react';
 import searchBooksRequest from '@/services/search-books';
+import { useIsFocused } from '@react-navigation/native';
 export default function TabThreeScreen() {
 
   const [books, setBooks] = useState();
+
+  const isFocused = useIsFocused();
 
   const runSearch = useCallback(async (query:string)=>{
 
@@ -30,8 +33,9 @@ export default function TabThreeScreen() {
       </ThemedView>
 
     <ThemedView style={{ paddingHorizontal: 24 }}>
-      <SearchBar runSearch={runSearch}/>
-      <SearchResults books={books} />
+      {isFocused ? <> <SearchBar runSearch={runSearch}/>
+      <SearchResults books={books} /></>: null}
+     
     </ThemedView>
       
     </ParallaxScrollView>
