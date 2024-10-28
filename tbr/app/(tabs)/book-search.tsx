@@ -33,8 +33,9 @@ export default function TabThreeScreen() {
       </ThemedView>
 
     <ThemedView style={{ paddingHorizontal: 24 }}>
-      {isFocused ? <> <SearchBar runSearch={runSearch}/>
-      <SearchResults books={books} /></>: null}
+      <SearchBar runSearch={runSearch}/>
+      {isFocused ? <> 
+      <SearchResults books={books} /></>: <></>}
      
     </ThemedView>
       

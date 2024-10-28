@@ -32,7 +32,7 @@ export default function TabFourScreen() {
       </ThemedView>
 
     <ThemedView style={{ paddingHorizontal: 24 }}>
-      {isFocused?<ReadingList  />:null }
+      {isFocused?<><ReadingList  /></>:<></> }
       
     </ThemedView>
       
