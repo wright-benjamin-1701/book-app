@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { Book } from '@/types';
+import { ThemedText } from './ThemedText';
 
 const ListBook: React.FC<{ book: Book, removeBookHandler: (book: Book) => void,buttonDisabled:boolean }> = ({ book, removeBookHandler,buttonDisabled }) => {
   return (
     <>
     <View style={styles.container}>
-      <Text style={styles.title}>{book.title}</Text>
-      <Text style={styles.author}>Author: {book.author}</Text>
-      <Text style={styles.year}>Year of Publication: {book.year}</Text>
+      <ThemedText style={styles.title}>{book.title}</ThemedText>
+      <ThemedText style={styles.author}>Author: {book.author}</ThemedText>
+      <ThemedText style={styles.year}>Year of Publication: {book.year}</ThemedText>
       <View style={{alignSelf:'baseline', marginVertical:2}}>
       <Button title='Remove book from reading list' onPress={()=> {removeBookHandler(book);}} disabled={buttonDisabled} />
     </View>
@@ -32,11 +33,9 @@ const styles = StyleSheet.create({
   },
   author: {
     fontSize: 16,
-    color: '#333',
   },
   year: {
     fontSize: 14,
-    color: '#666',
   },
 });
 

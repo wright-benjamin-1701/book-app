@@ -1,3 +1,4 @@
+import { useThemeColor } from '@/hooks/useThemeColor';
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
 
@@ -6,6 +7,7 @@ interface Props {
 }
 
 const SearchBar = (props:Props) => {
+
 
   const {runSearch} = props;
   const [searchQuery, setSearchQuery] = useState('');
@@ -43,6 +45,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginRight: 10, // Add some space between input and button
     paddingHorizontal: 10,
+    backgroundColor: 'white',
+    
   },
   item: {
     padding: 10,
