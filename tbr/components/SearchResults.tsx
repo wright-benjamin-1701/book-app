@@ -1,56 +1,62 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import {  StyleSheet } from 'react-native';
-import { Book } from '@/types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import ActionBookList from '@/components/ActionBookList';
-
-
-
+import React, { useCallback, useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
+import { Book } from "@/types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import ActionBookList from "@/components/ActionBookList";
 
 interface Props {
-    books?: Book[];
+  books?: Book[];
 }
-export default function SearchResults(props:Props) {
+export default function SearchResults(props: Props) {
   const { books } = props;
 
   const [readingList, setReadingList] = useState<Book[]>([]);
 
-  const onReadingListUpdated = useCallback((readingList:Book[])=> {setReadingList(readingList)}, [setReadingList]);
-  
-  const setAsyncReadingList = async (readingList:Book[]) => {
+  const onReadingListUpdated = useCallback(
+    (readingList: Book[]) => {
+      setReadingList(readingList);
+    },
+    [setReadingList]
+  );
+
+  const setAsyncReadingList = async (readingList: Book[]) => {
     const jsonValue = JSON.stringify(readingList);
-    await AsyncStorage.setItem('reading-list',jsonValue);
+    await AsyncStorage.setItem("reading-list", jsonValue);
     onReadingListUpdated([...readingList]);
+  };
 
-  }
+  const handleAddBookToReadingList = useCallback(
+    (book: Book) => {
+      setAsyncReadingList([...readingList, book]);
+    },
+    [setAsyncReadingList, readingList]
+  );
 
-  const handleAddBookToReadingList = useCallback((book:Book)=> {
-    setAsyncReadingList([...readingList, book]);
-  },[setAsyncReadingList, readingList]);
-
-  useEffect( ()=>{
+  useEffect(() => {
     const getReadingList = async () => {
-      try{
-        const tempList = await AsyncStorage.getItem('reading-list');
-        onReadingListUpdated(JSON.parse(tempList || '[]') as Book[]);
+      try {
+        const tempList = await AsyncStorage.getItem("reading-list");
+        onReadingListUpdated(JSON.parse(tempList || "[]") as Book[]);
+      } catch (e) {
+        onReadingListUpdated([] as Book[]);
       }
-      catch (e) {
-        onReadingListUpdated( [] as Book[]);
-      }
-    }
+    };
     getReadingList();
-    
-  },[onReadingListUpdated]);
+  }, [onReadingListUpdated]);
 
-  const buttonDisabled = (item: Book) => readingList.some((book)=>{
-    return book.isbn === item.isbn;
-  })
+  const buttonDisabled = (item: Book) =>
+    readingList.some((book) => {
+      return book.isbn === item.isbn;
+    });
 
   return (
     <>
-
-        <ActionBookList action={handleAddBookToReadingList} actionTitle='Add to Reading List' 
-        books={books} buttonDisabled={buttonDisabled} />
+      <ActionBookList
+        action={handleAddBookToReadingList}
+        actionTitle="Add to Reading List"
+        books={books}
+        buttonDisabled={buttonDisabled}
+      />
     </>
   );
 }
